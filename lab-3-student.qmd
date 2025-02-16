@@ -40,6 +40,7 @@ In the code chunk below, load in the packages necessary for your analysis. You s
 ```{r}
 #| label: setup
 
+library(tidyverse)
 ```
 
 # Part 2: Data Context
@@ -71,17 +72,21 @@ We are going to use the `read_csv()` function to load in the `surveys.csv` datas
 ```{r}
 #| label: load-data
 
-surveys <- read_csv("data/surveys.csv")
+surveys <- read_csv("surveys.csv")
 #glimpse(surveys)
+
+ncol(surveys)
+
+class(surveys)
 ```
 
 **1. What are the dimensions (# of rows and columns) of these data?**
 
-<!-- Run the commented code in the load-data chunk to address this question!  -->
+<!-- Run the commented code in the load-data chunk to address this question!  --> 
 
 **2. What are the data types of the variables in this dataset?**
 
-<!-- Run the commented code in the load-data chunk to address this question!  -->
+<!-- Run the commented code in the load-data chunk to address this question!  --> 
 
 # Part 3: Exploratory Data Analysis with **`ggplot2`**
 
@@ -107,6 +112,15 @@ Let's get started!
 ```{r}
 #| label: scatterplot
 
+ggplot(data = surveys) +
+  geom_point(mapping = aes(x = weight, 
+                           y = hindfoot_length), 
+             alpha = 0.5) + 
+  facet_wrap(~species) + 
+  labs(title = "Weight vs. Hindfoot Length", 
+       subtitle = "Hindfoot Length",
+   x = "Weight", 
+   y = NULL)
 ```
 
 We can see there are **a lot** of points plotted on top of each other. Let's try and modify this plot to extract more information from it.
@@ -136,6 +150,8 @@ It takes a larger cognitive load to read text that is rotated. It is common prac
 ```{r}
 #| label: boxplot
 
+ggplot(data = surveys) +
+  geom_boxplot(mapping = aes(x = weight))
 
 ```
 
