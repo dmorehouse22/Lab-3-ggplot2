@@ -117,10 +117,10 @@ ggplot(data = surveys) +
                            y = hindfoot_length), 
              alpha = 0.5) + 
   facet_wrap(~species) + 
-  labs(title = "Weight vs. Hindfoot Length", 
-       subtitle = "Hindfoot Length",
-   x = "Weight", 
-   y = NULL)
+  labs(title = "Influence of Weight on Hindfoot Length", 
+       subtitle = "Hindfoot Length (mm)",
+       x = "Weight (grams)", 
+       y = NULL)
 ```
 
 We can see there are **a lot** of points plotted on top of each other. Let's try and modify this plot to extract more information from it.
@@ -150,9 +150,12 @@ It takes a larger cognitive load to read text that is rotated. It is common prac
 ```{r}
 #| label: boxplot
 
-ggplot(data = surveys) +
-  geom_boxplot(mapping = aes(x = weight))
-
+ggplot(data = surveys, mapping = aes(x = weight, y = species)) +
+  geom_boxplot(outliers = FALSE) + 
+  geom_jitter(color = "orange",
+              alpha = 0.5) + labs(x = "Weight (grams)",
+                                  y = "Species") +
+  theme(axis.text.y = element_text(angle = 45))
 ```
 
 **9. Create side-by-side boxplots to visualize the distribution of weight within each species.**
@@ -194,6 +197,12 @@ Some people (and journals) prefer for boxplots to be stacked with a specific ori
 ```{r}
 #| label: rotated-boxplot
 
+ggplot(data = surveys, mapping = aes(x = species, y = weight)) +
+  geom_boxplot(outliers = FALSE) + 
+  geom_jitter(color = "orange",
+              alpha = 0.5) + labs(x = "Species",
+                                  y = "Weight (grams)") +
+  theme(axis.text.x = element_text(angle = 45))
 ```
 
 Notice how vertically stacked boxplots make the species labels more readable than horizontally stacked boxplots (even when the axis labels are rotated). This is good practice!
