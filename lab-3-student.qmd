@@ -1,3 +1,11 @@
+---
+title: Lab 3 - ggplot2
+author: Danny Morehouse
+embed-resources: true
+code-tools: true
+echo: true
+---
+
 # Part 1: Setup
 
 ## GitHub Workflow
